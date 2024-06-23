@@ -1,0 +1,18 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: zesty
+  annotations:
+    meta.helm.sh/release-name: zesty
+    meta.helm.sh/release-namespace: zesty
+  labels:
+    app.kubernetes.io/instance: zesty
+    app.kubernetes.io/name: zesty
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: zesty
+subjects:
+  - kind: ServiceAccount
+    name: zesty
+    namespace: zesty

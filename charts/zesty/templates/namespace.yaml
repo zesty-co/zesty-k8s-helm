@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: zesty
+  annotations:
+    meta.helm.sh/release-name: zesty
+    meta.helm.sh/release-namespace: zesty
+  labels:
+    app.kubernetes.io/instance: zesty
+    app.kubernetes.io/name: zesty

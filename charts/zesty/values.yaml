@@ -1,0 +1,15 @@
+orgID: ""
+encryptedCredentials: ""
+
+image:
+  repository: _.dkr.ecr._.amazonaws.com/_
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+pvc:
+  volumeName: "zesty-pv-storage"
+  mountPath: "/bin/db"
+  claim: "zesty-pvc"
+
+serviceAccount:
+  name: "zesty"
