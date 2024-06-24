@@ -20,40 +20,40 @@ spec:
       labels:
         app.kubernetes.io/instance: zesty
         app.kubernetes.io/name: zesty
-      spec:
-        automountServiceAccountToken: true
-        containers:
-          - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-            imagePullPolicy: {{ .Values.image.pullPolicy }}
-            name: {{ .Chart.Name }}
-            resources:
-              limits:
-                cpu: 1000m
-              requests:
-                cpu: 100m
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
-              readOnlyRootFilesystem: true
-            volumeMounts:
-              - mountPath: {{ .Values.pvc.mountPath }}
-                name: {{ .Values.pvc.volumeName }}
-            env:
-              - name: encrypted_credentials
-                value: {{ .Values.encryptedCredentials }}
-        priorityClassName: system-cluster-critical
-        securityContext:
-          fsGroup: 65532
-          runAsGroup: 65532
-          runAsNonRoot: true
-          runAsUser: 65532
-          seccompProfile:
-            type: RuntimeDefault
-        serviceAccountName: {{ .Values.serviceAccount.name }}
-        shareProcessNamespace: true
-        volumes:
-          - name: {{ .Values.pvc.volumeName }}
-            persistentVolumeClaim:
-            claimName: {{ .Values.pvc.claim }}
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: {{ .Chart.Name }}
+          resources:
+            limits:
+              cpu: 1000m
+            requests:
+              cpu: 100m
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - mountPath: {{ .Values.pvc.mountPath }}
+              name: {{ .Values.pvc.volumeName }}
+          env:
+            - name: encrypted_credentials
+              value: {{ .Values.encryptedCredentials }}
+      priorityClassName: system-cluster-critical
+      securityContext:
+        fsGroup: 65532
+        runAsGroup: 65532
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      shareProcessNamespace: true
+      volumes:
+        - name: {{ .Values.pvc.volumeName }}
+          persistentVolumeClaim:
+          claimName: {{ .Values.pvc.claim }}
