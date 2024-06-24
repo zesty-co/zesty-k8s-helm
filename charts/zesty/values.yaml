@@ -2,7 +2,7 @@ orgID: ""
 encryptedCredentials: ""
 
 image:
-  repository: _.dkr.ecr._.amazonaws.com/_
+  repository: "473301030746.dkr.ecr.us-west-2.amazonaws.com/zesty-k8s/agent"
   pullPolicy: IfNotPresent
   tag: "latest"
 
