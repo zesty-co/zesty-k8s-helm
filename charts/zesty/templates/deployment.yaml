@@ -56,4 +56,4 @@ spec:
       volumes:
         - name: {{ .Values.pvc.volumeName }}
           persistentVolumeClaim:
-          claimName: {{ .Values.pvc.claim }}
+            claimName: {{ .Values.pvc.claim }}
