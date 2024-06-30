@@ -5,9 +5,9 @@ metadata:
   namespace: {{ .Values.namespace }}
   annotations:
     meta.helm.sh/release-name: zesty
-    meta.helm.sh/release-namespace: {{ .Values.namespace }} 
+    meta.helm.sh/release-namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/instance: zesty
     app.kubernetes.io/name: zesty
 data:
-  org-id: {{ .Values.orgID }}
+  org-id: "{{ .Values.orgID }}"
