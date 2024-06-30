@@ -47,7 +47,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: zesty
-                  key: data.org-id
+                  key: orgID
       priorityClassName: system-cluster-critical
       securityContext:
         fsGroup: 65532

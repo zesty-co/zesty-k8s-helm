@@ -10,4 +10,4 @@ metadata:
     app.kubernetes.io/instance: zesty
     app.kubernetes.io/name: zesty
 data:
-  org-id: "{{ .Values.orgID }}"
+  orgID: "{{ .Values.orgID }}"
