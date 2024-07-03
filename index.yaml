@@ -3,6 +3,16 @@ entries:
   zesty-k8s-helm:
   - apiVersion: v2
     appVersion: 1.0.8
+    created: "2024-07-03T10:23:19.31074401Z"
+    description: A Helm chart for Kubernetes
+    digest: 83b35ae2c43299ed2d4b2b6fd06e0864a8fa292cf97d622185faa1f9650464bf
+    name: zesty-k8s-helm
+    type: application
+    urls:
+    - https://github.com/zesty-co/zesty-k8s-helm/releases/download/zesty-k8s-helm-0.1.9/zesty-k8s-helm-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: 1.0.8
     created: "2024-06-30T08:12:11.161308558Z"
     description: A Helm chart for Kubernetes
     digest: a9ac03c02158ce9b8ec14fcb1692740b743bc87270df256b69fbaa558d1f61ff
@@ -81,4 +91,4 @@ entries:
     urls:
     - https://github.com/zesty-co/zesty-k8s-helm/releases/download/zesty-k8s-helm-0.1.0/zesty-k8s-helm-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-30T08:12:11.161385324Z"
+generated: "2024-07-03T10:23:19.310813459Z"
