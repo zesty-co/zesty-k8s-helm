@@ -2,10 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zesty
-  namespace: {{ .Values.namespace }} 
-  annotations:
-    meta.helm.sh/release-name: zesty
-    meta.helm.sh/release-namespace: {{ .Values.namespace }} 
   labels:
     app.kubernetes.io/instance: zesty
     app.kubernetes.io/name: zesty
