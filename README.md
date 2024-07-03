@@ -16,11 +16,11 @@ helm repo update
 ```
 $ helm search repo zesty
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-zesty/zesty-k8s-helm    0.1.0           1.0.8           A Helm chart for Kubernetes
+zesty/zesty-k8s-helm    0.1.9           1.0.8           A Helm chart for Kubernetes
 ```
 3. Install the chart
 ```sh
-helm install zesty-k8s --set orgID=<ORG_ID> --set encryptedCredentials=<KEY> zesty/zesty-k8s-helm
+helm install zesty-k8s --set orgID=<ORG_ID> --set encryptedCredentials=<KEY> zesty/zesty-k8s-helm --namespace <NAMESPACE> --create-namespace
 ```
 
 ## Uninstalling
