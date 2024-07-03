@@ -37,13 +37,20 @@ spec:
             - mountPath: {{ .Values.pvc.mountPath }}
               name: {{ .Values.pvc.volumeName }}
           env:
-            - name: encrypted_credentials
-              value: {{ .Values.encryptedCredentials }}
             - name: org_id
               valueFrom:
                 configMapKeyRef:
                   name: zesty
                   key: orgID
+          {{- if ne .Values.encryptedCredentials ""}}
+            - name: encrypted_credentials
+              value: {{ .Values.encryptedCredentials | quote }}
+          {{- end }}
+          {{- if eq .Values.encryptedCredentials "" }}
+          envFrom:
+          - secretRef:
+                name: {{ .Values.secret.name | quote }}
+           {{- end }}
       priorityClassName: system-cluster-critical
       securityContext:
         fsGroup: 65532
