@@ -18,4 +18,4 @@ serviceAccount:
   name: "zesty"
   annotations:
 
-createClusterRole: false
+createClusterRole: true
