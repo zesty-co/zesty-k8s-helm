@@ -16,3 +16,4 @@ pvc:
 
 serviceAccount:
   name: "zesty"
+  annotations:
