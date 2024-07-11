@@ -9,13 +9,33 @@ image:
   pullPolicy: IfNotPresent
   tag: "latest"
 
-pvc:
+persistence:
   volumeName: "zesty-pv-storage"
   mountPath: "/bin/db"
   claim: "zesty-pvc"
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
 
 serviceAccount:
   name: "zesty"
   annotations:
 
 createClusterRole: true
+
+securityContext:
+  fsGroup: 65532
+  runAsGroup: 65532
+  runAsNonRoot: true
+  runAsUser: 65532
+  seccompProfile:
+    type: RuntimeDefault
+
+resources:
+  limits:
+    cpu: 1000m
+  requests:
+    cpu: 100m
