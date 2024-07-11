@@ -27,11 +27,7 @@ spec:
           {{- toYaml . | nindent 12 }}
           {{- end }}
           securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            readOnlyRootFilesystem: true
+          {{- toYaml .Values.container.securityContext | nindent 12 }}
           volumeMounts:
             - mountPath: {{ .Values.persistence.mountPath }}
               name: {{ .Values.persistence.volumeName }}

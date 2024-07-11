@@ -26,6 +26,14 @@ serviceAccount:
 
 createClusterRole: true
 
+container:
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+
 securityContext:
   fsGroup: 65532
   runAsGroup: 65532
