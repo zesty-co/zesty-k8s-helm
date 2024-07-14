@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: zesty
+  name: zesty-default
   labels:
     app.kubernetes.io/instance: zesty
     app.kubernetes.io/name: zesty
