@@ -16,6 +16,8 @@ rules:
       - persistentvolumeclaims
       - persistentvolumes
       - pods
+      - replicationcontrollers
+      - services
     verbs:
       - get
       - list
@@ -27,6 +29,14 @@ rules:
       - replicasets
       - daemonsets
       - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
     verbs:
       - get
       - list
