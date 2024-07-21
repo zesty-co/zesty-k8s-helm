@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zesty
+  name: "{{ include "zesty-k8s.fullname" . }}"
   labels:
-    app.kubernetes.io/instance: zesty
-    app.kubernetes.io/name: zesty
+    app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
+    app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: zesty
-      app.kubernetes.io/name: zesty
+      app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
+      app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: zesty
-        app.kubernetes.io/name: zesty
+        app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
+        app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
     spec:
       automountServiceAccountToken: true
       containers:
         - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          name: {{ .Chart.Name }}
+          name: "{{ include "zesty-k8s.name" . }}"
           {{- with .Values.resources }}
           resources:
           {{- toYaml . | nindent 12 }}
@@ -35,7 +35,7 @@ spec:
             - name: org_id
               valueFrom:
                 configMapKeyRef:
-                  name: zesty
+                  name: "{{ include "zesty-k8s.configmap" . }}"
                   key: orgID
           {{- if ne .Values.encryptedCredentials ""}}
             - name: encrypted_credentials
@@ -49,9 +49,9 @@ spec:
       priorityClassName: system-cluster-critical
       securityContext:
       {{- toYaml .Values.securityContext | nindent 8 }}
-      serviceAccountName: {{ .Values.serviceAccount.name }}
+      serviceAccountName: "{{ include "zesty-k8s.saname" . }}"
       shareProcessNamespace: true
       volumes:
         - name: {{ .Values.persistence.volumeName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.claim }}
+            claimName: "{{ include "zesty-k8s.pvcname" . }}"

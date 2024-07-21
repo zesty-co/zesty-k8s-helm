@@ -9,10 +9,13 @@ image:
   pullPolicy: IfNotPresent
   tag: "latest"
 
+nameOverride: ~
+fullnameOverride: ~
+namespaceOverride: ~
+
 persistence:
   volumeName: "zesty-pv-storage"
   mountPath: "/bin/db"
-  claim: "zesty-pvc"
   spec:
     accessModes:
       - ReadWriteOnce
@@ -21,7 +24,6 @@ persistence:
         storage: 1Gi
 
 serviceAccount:
-  name: "zesty"
   annotations:
 
 container:

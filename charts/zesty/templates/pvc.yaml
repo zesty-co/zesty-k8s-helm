@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.persistence.claim }}
+  name: "{{ include "zesty-k8s.pvcname" . }}"
   labels:
-    app.kubernetes.io/instance: zesty
-    app.kubernetes.io/name: zesty
+    app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
+    app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
 spec:
   {{- toYaml .Values.persistence.spec | nindent 2 }}
