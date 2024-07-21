@@ -73,3 +73,14 @@ Create a name for the ClusterRoleBinding
 {{- define "zesty-k8s.clusterrolebinding" -}}
 {{ printf "%s-clusterRoleBinding" (include "zesty-k8s.fullname" .) }}
 {{- end -}}
+
+
+{{/*
+All of the relevant verbs
+*/}}
+{{- define "zesty-k8s.verbs" -}}
+verbs:
+  - get
+  - list
+  - watch
+{{- end -}}
