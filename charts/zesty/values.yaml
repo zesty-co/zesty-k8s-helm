@@ -24,8 +24,6 @@ serviceAccount:
   name: "zesty"
   annotations:
 
-createClusterRole: true
-
 container:
   securityContext:
     allowPrivilegeEscalation: false

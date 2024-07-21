@@ -1,8 +1,7 @@
-{{- if ne .Values.createClusterRole false }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: zesty
+  name: "{{ .Release.Name }}"
   labels:
     app.kubernetes.io/instance: zesty
     app.kubernetes.io/name: zesty
@@ -10,10 +9,13 @@ rules:
   - apiGroups:
       - ""
     resources:
-      - pods
-      - events
       - configmaps
+      - events
+      - namespaces
+      - nodes
       - persistentvolumeclaims
+      - persistentvolumes
+      - pods
     verbs:
       - get
       - list
@@ -29,4 +31,20 @@ rules:
       - get
       - list
       - watch
-{{- end -}}
+  - apiGroups:
+      - policy
+    resources:
+      - poddisruptionbudgets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "karpenter.sh"
+    resources:
+      - nodepools
+      - nodeclaims
+    verbs:
+      - get
+      - list
+      - watch
