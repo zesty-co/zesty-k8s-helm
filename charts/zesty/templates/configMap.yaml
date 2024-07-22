@@ -7,3 +7,5 @@ metadata:
     app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
 data:
   orgID: "{{ .Values.orgID }}"
+  dbPath: "{{ .Values.persistence.mounthPath }}/zesty.db"
+  changelogPath: "{{ .Values.persistence.mounthPath }}/changelog.parquet"

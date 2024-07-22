@@ -22,6 +22,21 @@ spec:
         - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: "{{ include "zesty-k8s.name" . }}"
+          ports:
+            - containerPort: 9000
+              name: healthz
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 9000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 9000
+            initialDelaySeconds: 5
+            periodSeconds: 5
           {{- with .Values.resources }}
           resources:
           {{- toYaml . | nindent 12 }}
@@ -32,13 +47,23 @@ spec:
             - mountPath: {{ .Values.persistence.mountPath }}
               name: {{ .Values.persistence.volumeName }}
           env:
-            - name: org_id
+            - name: ORG_ID
               valueFrom:
                 configMapKeyRef:
                   name: "{{ include "zesty-k8s.configmap" . }}"
                   key: orgID
+            - name: PATHS_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ include "zesty-k8s.configmap" . }}"
+                  key: dbPath
+            - name: PATHS_CHANGELOG
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ include "zesty-k8s.configmap" . }}"
+                  key: changelogPath
           {{- if ne .Values.encryptedCredentials ""}}
-            - name: encrypted_credentials
+            - name: ENCRYPTED_CREDENTIALS
               value: {{ .Values.encryptedCredentials | quote }}
           {{- end }}
           {{- if eq .Values.encryptedCredentials "" }}
