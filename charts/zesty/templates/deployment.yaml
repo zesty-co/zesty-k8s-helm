@@ -66,6 +66,22 @@ spec:
                 configMapKeyRef:
                   name: "{{ include "zesty-k8s.configmap" . }}"
                   key: changelogPath
+          {{- if .Values.prometheus.url }}
+            - name: PROMETHEUS_SERVER_ENDPOINT
+              value: {{ .Values.prometheus.url }}
+          {{- end }}
+          {{- if .Values.prometheus.username }}
+            - name: DB_BASIC_AUTH_USERNAME
+              value: {{ .Values.prometheus.username }}
+          {{- end }}
+          {{- if .Values.prometheus.password }}
+            - name: DB_BASIC_AUTH_PW
+              value: {{ .Values.prometheus.password }}
+          {{- end }}
+          {{- if .Values.prometheus.bearerToken }}
+            - name: DB_BEARER_TOKEN
+              value: {{ .Values.prometheus.bearerToken }}
+          {{- end }}
           {{- if ne .Values.encryptedCredentials ""}}
             - name: ENCRYPTED_CREDENTIALS
               value: {{ .Values.encryptedCredentials | quote }}

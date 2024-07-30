@@ -49,3 +49,9 @@ resources:
     cpu: 1000m
   requests:
     cpu: 100m
+
+prometheus:
+  url: ~
+  username: ~
+  password: ~
+  bearerToken: ~
