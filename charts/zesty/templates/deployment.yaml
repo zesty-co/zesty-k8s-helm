@@ -18,6 +18,10 @@ spec:
         app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
     spec:
       automountServiceAccountToken: true
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml .Values.nodeSelector | nindent 10 }}
+      {{- end }}
       containers:
         - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
