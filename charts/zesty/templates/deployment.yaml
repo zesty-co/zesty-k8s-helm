@@ -89,8 +89,13 @@ spec:
           {{- if eq .Values.encryptedCredentials "" }}
           envFrom:
           - secretRef:
-                name: {{ .Values.secret.name | quote }}
-           {{- end }}
+            name: {{ .Values.secret.name | quote }}
+          {{- end }}
+          {{- if .Values.awsCluster }}
+          envFrom:
+          - secretRef:
+            name: "aws-cluster-secret"
+          {{- end }}
       priorityClassName: system-cluster-critical
       securityContext:
       {{- toYaml .Values.securityContext | nindent 8 }}
