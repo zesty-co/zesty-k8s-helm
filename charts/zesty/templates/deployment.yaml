@@ -85,16 +85,20 @@ spec:
           {{- if ne .Values.encryptedCredentials ""}}
             - name: ENCRYPTED_CREDENTIALS
               value: {{ .Values.encryptedCredentials | quote }}
+            {{- if .Values.awsCluster }}
+          envFrom:
+            - secretRef:
+                name: "aws-cluster-secret"
+            {{- end }}
           {{- end }}
           {{- if eq .Values.encryptedCredentials "" }}
           envFrom:
-          - secretRef:
-            name: {{ .Values.secret.name | quote }}
-          {{- end }}
-          {{- if .Values.awsCluster }}
-          envFrom:
-          - secretRef:
-            name: "aws-cluster-secret"
+            - secretRef:
+                name: {{ .Values.secret.name | quote }}
+            {{- if .Values.awsCluster }}
+            - secretRef:
+                name: "aws-cluster-secret"
+            {{- end }}
           {{- end }}
       priorityClassName: system-cluster-critical
       securityContext:
