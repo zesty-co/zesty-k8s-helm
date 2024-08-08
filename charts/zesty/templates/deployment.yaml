@@ -53,23 +53,18 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "zesty-k8s.configmap" . }}"
-          {{- if ne .Values.encryptedCredentials ""}}
-          env:
-            - name: ENCRYPTED_CREDENTIALS
-              value: {{ .Values.encryptedCredentials | quote }}
-            {{- if .Values.awsCluster }}
-          envFrom:
+          {{- if .Values.awsCluster }}
             - secretRef:
                 name: "aws-cluster-secret"
-            {{- end }}
           {{- end }}
           {{- if eq .Values.encryptedCredentials "" }}
             - secretRef:
                 name: {{ .Values.secret.name | quote }}
-            {{- if .Values.awsCluster }}
-            - secretRef:
-                name: "aws-cluster-secret"
-            {{- end }}
+          {{- end }}
+          {{- if ne .Values.encryptedCredentials ""}}
+          env:
+            - name: ENCRYPTED_CREDENTIALS
+              value: {{ .Values.encryptedCredentials | quote }}
           {{- end }}
       priorityClassName: system-cluster-critical
       securityContext:
