@@ -7,6 +7,8 @@ metadata:
     app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
