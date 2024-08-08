@@ -28,4 +28,5 @@ data:
   ATHENA_DATABASE: "{{ .Values.awsAthena.athenaDatabase }}"
   ATHENA_TABLE: "{{ .Values.awsAthena.athenaTable }}"
   ATHENA_WORKGROUP: "{{ .Values.awsAthena.athenaWorkgroup }}"
+  ATHENA_CATALOG: "{{ .Values.awsAthena.athenaCatalog }}"
   {{- end -}}
