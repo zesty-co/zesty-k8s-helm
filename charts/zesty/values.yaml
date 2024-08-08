@@ -66,3 +66,4 @@ awsAthena:
   athenaDatabase: ~
   athenaTable: ~
   athenaWorkgroup: ~
+  athenaCatalog: ~
