@@ -50,39 +50,11 @@ spec:
           volumeMounts:
             - mountPath: {{ .Values.persistence.mountPath }}
               name: {{ .Values.persistence.volumeName }}
-          env:
-            - name: ORG_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: "{{ include "zesty-k8s.configmap" . }}"
-                  key: orgID
-            - name: PATHS_DATABASE
-              valueFrom:
-                configMapKeyRef:
-                  name: "{{ include "zesty-k8s.configmap" . }}"
-                  key: dbPath
-            - name: PATHS_CHANGELOG
-              valueFrom:
-                configMapKeyRef:
-                  name: "{{ include "zesty-k8s.configmap" . }}"
-                  key: changelogPath
-          {{- if .Values.prometheus.url }}
-            - name: PROMETHEUS_SERVER_ENDPOINT
-              value: {{ .Values.prometheus.url }}
-          {{- end }}
-          {{- if .Values.prometheus.username }}
-            - name: DB_BASIC_AUTH_USERNAME
-              value: {{ .Values.prometheus.username }}
-          {{- end }}
-          {{- if .Values.prometheus.password }}
-            - name: DB_BASIC_AUTH_PW
-              value: {{ .Values.prometheus.password }}
-          {{- end }}
-          {{- if .Values.prometheus.bearerToken }}
-            - name: DB_BEARER_TOKEN
-              value: {{ .Values.prometheus.bearerToken }}
-          {{- end }}
+          envFrom:
+            - configMapRef:
+                name: "{{ include "zesty-k8s.configmap" . }}"
           {{- if ne .Values.encryptedCredentials ""}}
+          env:
             - name: ENCRYPTED_CREDENTIALS
               value: {{ .Values.encryptedCredentials | quote }}
             {{- if .Values.awsCluster }}
@@ -92,7 +64,6 @@ spec:
             {{- end }}
           {{- end }}
           {{- if eq .Values.encryptedCredentials "" }}
-          envFrom:
             - secretRef:
                 name: {{ .Values.secret.name | quote }}
             {{- if .Values.awsCluster }}

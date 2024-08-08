@@ -6,6 +6,26 @@ metadata:
     app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
     app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
 data:
-  orgID: "{{ .Values.orgID }}"
-  dbPath: "{{ .Values.persistence.mountPath }}/zesty.db"
-  changelogPath: "{{ .Values.persistence.mountPath }}/changelog.parquet"
+  ORG_ID: "{{ .Values.orgID }}"
+  PATHS_DATABASE: "{{ .Values.persistence.mountPath }}/zesty.db"
+  PATHS_CHANGELOG: "{{ .Values.persistence.mountPath }}/changelog.parquet"
+  {{- if .Values.prometheus.url }}
+  PROMETHEUS_SERVER_ENDPOINT: "{{ .Values.prometheus.url }}"
+  {{- end }}
+  {{- if .Values.prometheus.username }}
+  DB_BASIC_AUTH_USERNAME: "{{ .Values.prometheus.username }}"
+  {{- end }}
+  {{- if .Values.prometheus.password }}
+  DB_BASIC_AUTH_PW: "{{ .Values.prometheus.password }}"
+  {{- end }}
+  {{- if .Values.prometheus.bearerToken }}
+  DB_BEARER_TOKEN: "{{ .Values.prometheus.bearerToken }}"
+  {{- end }}
+  {{- if .Values.awsAthena.enabled }}
+  ATHENA_PROJECT_ID: "{{ .Values.awsAthena.athenaProjectID }}"
+  ATHENA_BUCKET_NAME: "{{ .Values.awsAthena.athenaBucketName }}"
+  ATHENA_REGION: "{{ .Values.awsAthena.athenaRegion }}"
+  ATHENA_DATABASE: "{{ .Values.awsAthena.athenaDatabase }}"
+  ATHENA_TABLE: "{{ .Values.awsAthena.athenaTable }}"
+  ATHENA_WORKGROUP: "{{ .Values.awsAthena.athenaWorkgroup }}"
+  {{- end -}}

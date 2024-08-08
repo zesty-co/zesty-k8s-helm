@@ -57,3 +57,12 @@ prometheus:
   bearerToken: ~
 
 awsCluster: true
+
+awsAthena:
+  enabled: false
+  athenaProjectID: ~
+  athenaBucketName: ~
+  athenaRegion: ~
+  athenaDatabase: ~
+  athenaTable: ~
+  athenaWorkgroup: ~
