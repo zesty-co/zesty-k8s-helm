@@ -55,9 +55,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "zesty-k8s.configmap" . }}"
-          {{- if .Values.awsCluster }}
+          {{- if .Values.awsCluster.enabled }}
             - secretRef:
-                name: "aws-cluster-secret"
+                name: {{ .Values.awsCluster.secretName }}
           {{- end }}
           {{- if eq .Values.encryptedCredentials "" }}
             - secretRef:
