@@ -56,7 +56,9 @@ prometheus:
   password: ~
   bearerToken: ~
 
-awsCluster: true
+awsCluster:
+  enabled: true
+  secretName: aws-cluster-secret
 
 awsAthena:
   enabled: false

@@ -51,6 +51,13 @@ Create a name for the PVC
 {{ printf "%s-pvc" (include "zesty-k8s.fullname" .) }}
 {{- end -}}
 
+{{/*
+Create a name for the external-secret
+*/}}
+{{- define "zesty-k8s.externalSecret.awsCred" -}}
+{{ printf "%s-aws-cluster-secret" (include "zesty-k8s.fullname" .) }}
+{{- end -}}
+
 
 {{/*
 Create a name for the ConfigMap
