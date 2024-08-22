@@ -8,9 +8,6 @@ metadata:
 data:
   ORG_ID: "{{ .Values.orgID }}"
   PATHS_MOUNTPATH: "{{ .Values.persistence.mountPath }}/"
-  PATHS_DATABASE: "{{ .Values.persistence.mountPath }}/zesty.db"
-  PATHS_CHANGELOG: "{{ .Values.persistence.mountPath }}/changelog.parquet"
-  PATHS_DELTADATABASES: ["{{ .Values.persistence.mountPath }}/zestydelta-0.db", "{{ .Values.persistence.mountPath }}/zestydelta-1.db"]
   {{- if .Values.prometheus.url }}
   PROMETHEUS_SERVER_ENDPOINT: "{{ .Values.prometheus.url }}"
   {{- end }}
