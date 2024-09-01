@@ -30,6 +30,7 @@ rules:
   - apiGroups:
       - batch
     resources:
+      - cronjob
       - jobs
     {{- include "zesty-k8s.verbs" . | nindent 4 }}
   - apiGroups:
@@ -47,4 +48,9 @@ rules:
     resources:
       - nodepools
       - nodeclaims
+    {{- include "zesty-k8s.verbs" . | nindent 4 }}
+  - apiGroups:
+      - "keda.sh"
+    resources:
+      - scaledjobs
     {{- include "zesty-k8s.verbs" . | nindent 4 }}
