@@ -30,7 +30,7 @@ rules:
   - apiGroups:
       - batch
     resources:
-      - cronjob
+      - cronjobs
       - jobs
     {{- include "zesty-k8s.verbs" . | nindent 4 }}
   - apiGroups:
