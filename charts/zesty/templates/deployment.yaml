@@ -31,6 +31,10 @@ spec:
           ports:
             - containerPort: 9000
               name: healthz
+            {{- if .Values.grpc.enabled }}
+            - containerPort: {{ .Values.grpc.port }}
+              name: grpc
+            {{- end }}
           readinessProbe:
             httpGet:
               path: /ready

@@ -69,3 +69,9 @@ awsAthena:
   athenaTable: ~
   athenaWorkgroup: ~
   athenaCatalog: ~
+
+grpc:
+  enabled: false
+  port: 50051
+  server:
+    endpoint: ~

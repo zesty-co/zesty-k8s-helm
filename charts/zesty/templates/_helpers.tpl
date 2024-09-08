@@ -83,6 +83,14 @@ Create a name for the ClusterRoleBinding
 
 
 {{/*
+Create a name for the Service
+*/}}
+{{- define "zesty-k8s.svc" -}}
+{{ printf "%s-svc" (include "zesty-k8s.fullname" .) }}
+{{- end -}}
+
+
+{{/*
 All of the relevant verbs
 */}}
 {{- define "zesty-k8s.verbs" -}}

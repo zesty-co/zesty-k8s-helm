@@ -28,4 +28,9 @@ data:
   ATHENA_TABLE: "{{ .Values.awsAthena.athenaTable }}"
   ATHENA_WORKGROUP: "{{ .Values.awsAthena.athenaWorkgroup }}"
   ATHENA_CATALOG: "{{ .Values.awsAthena.athenaCatalog }}"
+  {{- end }}
+  {{- if .Values.grpc.enabled }}
+  GRPC_PORT: "{{ .Values.grpc.port }}"
+  MANAGER_HOST: "{{ .Values.grpc.server.endpoint }}"
+  MANAGER_PORT: "{{ .Values.grpc.port }}"
   {{- end -}}

@@ -1,0 +1,18 @@
+{{- if .Values.grpc.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "zesty-k8s.svc" . }}"
+  labels:
+    app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
+    app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
+spec:
+  selector:
+    app: "{{ include "zesty-k8s.fullname" . }}"
+  ports:
+    - name: grpc
+      port: {{ .Values.grpc.port }}
+      targetPort: {{ .Values.grpc.port }}
+      protocol: TCP
+  type: ClusterIP
+{{- end }}
