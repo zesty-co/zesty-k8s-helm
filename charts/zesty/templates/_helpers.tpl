@@ -97,5 +97,8 @@ All of the relevant verbs
 verbs:
   - get
   - list
+  {{- if .Values.config.manager.enable }}
+  - patch
+  {{- end }}
   - watch
 {{- end -}}

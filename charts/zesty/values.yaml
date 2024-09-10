@@ -75,3 +75,7 @@ grpc:
   port: 50051
   server:
     endpoint: ~
+
+config:
+  manager:
+    enable: false
