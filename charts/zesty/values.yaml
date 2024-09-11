@@ -11,6 +11,8 @@ image:
 
 nodeSelector: {}
 
+tolerations: []
+
 nameOverride: ~
 fullnameOverride: ~
 namespaceOverride: ~
