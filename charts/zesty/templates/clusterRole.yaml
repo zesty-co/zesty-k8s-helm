@@ -20,6 +20,13 @@ rules:
       - services
     {{- include "zesty-k8s.verbs" . | nindent 4 }}
   - apiGroups:
+      - "metrics.k8s.io"
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+  - apiGroups:
       - apps
     resources:
       - deployments
