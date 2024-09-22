@@ -36,7 +36,7 @@ spec:
             - containerPort: 9000
               name: healthz
             {{- if .Values.grpc.enabled }}
-            - containerPort: {{ .Values.grpc.port }}
+            - containerPort: {{ .Values.grpc.server.port }}
               name: grpc
             {{- end }}
           readinessProbe:

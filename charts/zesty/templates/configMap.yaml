@@ -30,7 +30,7 @@ data:
   ATHENA_CATALOG: "{{ .Values.awsAthena.athenaCatalog }}"
   {{- end }}
   {{- if .Values.grpc.enabled }}
-  GRPC_PORT: "{{ .Values.grpc.port }}"
-  MANAGER_HOST: "{{ .Values.grpc.server.endpoint }}"
-  MANAGER_PORT: "{{ .Values.grpc.port }}"
+  GRPC_PORT: "{{ .Values.grpc.server.port }}"
+  MANAGER_HOST: "{{ .Values.grpc.client.endpoint }}"
+  MANAGER_PORT: "{{ .Values.grpc.client.port }}"
   {{- end -}}
