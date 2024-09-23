@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
 spec:
   selector:
-    app: "{{ include "zesty-k8s.fullname" . }}"
+    app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
   ports:
     {{- if .Values.grpc.enabled }}
     - name: grpc
