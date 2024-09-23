@@ -35,9 +35,11 @@ spec:
           ports:
             - containerPort: {{ .Values.health.port }}
               name: healthz
+              protocol: TCP
             {{- if .Values.grpc.enabled }}
             - containerPort: {{ .Values.grpc.server.port }}
               name: grpc
+              protocol: TCP
             {{- end }}
           readinessProbe:
             httpGet:

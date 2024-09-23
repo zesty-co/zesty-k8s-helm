@@ -10,13 +10,15 @@ spec:
   selector:
     app: "{{ include "zesty-k8s.fullname" . }}"
   ports:
+    {{- if .Values.grpc.enabled }}
     - name: grpc
       port: {{ .Values.grpc.server.port }}
-      targetPort: {{ .Values.grpc.server.port }}
+      targetPort: grpc
       protocol: TCP
+    {{- end }}
     - name: healthz
       port: {{ .Values.health.port }}
-      targetPort: {{ .Values.health.port }}
+      targetPort: healthz
       protocol: TCP
   type: ClusterIP
 {{- end }}
