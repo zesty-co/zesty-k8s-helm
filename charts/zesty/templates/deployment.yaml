@@ -33,7 +33,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: "{{ include "zesty-k8s.name" . }}"
           ports:
-            - containerPort: 9000
+            - containerPort: {{ .Values.health.port }}
               name: healthz
             {{- if .Values.grpc.enabled }}
             - containerPort: {{ .Values.grpc.server.port }}
@@ -42,13 +42,13 @@ spec:
           readinessProbe:
             httpGet:
               path: /ready
-              port: 9000
+              port: {{ .Values.health.port }}
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: 9000
+              port: {{ .Values.health.port }}
             initialDelaySeconds: 5
             periodSeconds: 5
           {{- with .Values.resources }}

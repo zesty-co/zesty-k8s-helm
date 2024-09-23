@@ -14,5 +14,9 @@ spec:
       port: {{ .Values.grpc.server.port }}
       targetPort: {{ .Values.grpc.server.port }}
       protocol: TCP
+    - name: healthz
+      port: {{ .Values.health.port }}
+      targetPort: {{ .Values.health.port }}
+      protocol: TCP
   type: ClusterIP
 {{- end }}

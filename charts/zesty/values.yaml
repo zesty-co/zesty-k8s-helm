@@ -80,10 +80,12 @@ grpc:
   server:
     port: 50052
 
+health:
+  port: 9000
+
 config:
   manager:
     enable: false
-
 
 metricsServer:
   enabled: false # enable it to install metrics-server
