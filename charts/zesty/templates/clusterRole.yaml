@@ -61,3 +61,11 @@ rules:
     resources:
       - scaledjobs
     {{- include "zesty-k8s.verbs" . | nindent 4 }}
+  - apiGroups:
+      - autoscaling
+    resources:
+      - horizontalpodautoscalers
+    verbs:
+      - get
+      - list
+      - watch
