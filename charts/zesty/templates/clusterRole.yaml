@@ -65,7 +65,9 @@ rules:
       - autoscaling
     resources:
       - horizontalpodautoscalers
-    verbs:
-      - get
-      - list
-      - watch
+    {{- include "zesty-k8s.verbs" . | nindent 4 }}
+  - apiGroups:
+      - "qscaler.qubex.ai"
+    resources:
+      - workloadprotections
+    {{- include "zesty-k8s.verbs" . | nindent 4 }}
