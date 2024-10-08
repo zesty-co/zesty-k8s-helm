@@ -29,6 +29,10 @@ data:
   ATHENA_WORKGROUP: "{{ .Values.awsAthena.athenaWorkgroup }}"
   ATHENA_CATALOG: "{{ .Values.awsAthena.athenaCatalog }}"
   {{- end }}
+  {{- if .Values.s3override.enabled }}
+  S3BUCKET: "{{ .Values.s3override.bucket }}"
+  REGION: "{{ .Values.s3override.region }}"
+  {{- end }}
   {{- if .Values.grpc.enabled }}
   GRPC_PORT: "{{ .Values.grpc.server.port }}"
   MANAGER_HOST: "{{ .Values.grpc.client.endpoint }}"

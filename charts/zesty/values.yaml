@@ -72,6 +72,11 @@ awsAthena:
   athenaWorkgroup: ~
   athenaCatalog: ~
 
+s3override:
+  enabled: false
+  bucket: ~
+  region: ~
+
 grpc:
   enabled: false
   client:
