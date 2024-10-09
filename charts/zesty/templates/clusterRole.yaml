@@ -70,4 +70,4 @@ rules:
       - "qscaler.qubex.ai"
     resources:
       - workloadprotections
-    {{- include "zesty-k8s.verbs" . | nindent 4 }}
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
