@@ -1,0 +1,185 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Zesty Kubernetes Template
+
+Parameters:
+  S3CURBucket:
+    Description: The bucket created to receive CUR data upon CUR creation.
+    Type: String
+  S3BucketResult:
+    Description: The bucket created to receive Athena query results.
+    Type: String
+  AthenaDatabase:
+    Description: The name of the Athena database.
+    Type: String
+  SpotDataFeedBucketName:
+    Description: Optional. The bucket created to receive spot data feed.
+    Type: String
+  AWSSecretManager:
+    Description: The name of the AWS Secret Manager.
+    Type: String
+    Default: "zesty/access-credentials"
+  ZestyUserName:
+    Description: The name of the AWS CUR crawler user.
+    Type: String
+  ZestyRoleName:
+    Description: The name of the Zesty IAM role.
+    Type: String
+
+Conditions:
+  HasSpotFeedBucketName: !Not [ !Equals [ !Ref SpotDataFeedBucketName, "" ] ]
+
+Resources:
+  MyKmsKey:
+    Type: 'AWS::KMS::Key'
+    Properties: 
+      Description: "KMS key for encrypting AWS Secrets Manager secrets"
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "Enable IAM User Permissions"
+            Effect: "Allow"
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action: "kms:*"
+            Resource: "*"
+          - Sid: "Allow Secrets Manager Use of the Key"
+            Effect: "Allow"
+            Principal:
+              Service: "secretsmanager.amazonaws.com"
+            Action: 
+              - "kms:Decrypt"
+              - "kms:Encrypt"
+              - "kms:ReEncrypt*"
+              - "kms:GenerateDataKey*"
+            Resource: "*"
+  SpotFeedPolicy:
+    Type: 'AWS::IAM::Policy'
+    Condition: HasSpotFeedBucketName
+    Properties:
+      Users:
+        - !Ref ZestyUser
+      Roles:
+        - !Ref ZestyRole
+      PolicyName: 'Zesty-spot-data-feed-access'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Sid: SpotDataAccess
+          Effect: Allow
+          Action:
+          - s3:ListAllMyBuckets
+          - s3:ListBucket
+          - s3:HeadBucket
+          - s3:HeadObject
+          - s3:List*
+          - s3:Get*
+          Resource: "*"
+
+  AthenaPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      Users:
+        - !Ref ZestyUser
+      Roles:
+        - !Ref ZestyRole
+      PolicyName: 'Zesty-athena-access'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Sid: AthenaAccess
+          Effect: Allow
+          Action:
+          - athena:*
+          Resource:
+          - "*"
+        - Sid: ReadAccessToAthenaCurDataViaGlue
+          Effect: Allow
+          Action:
+          - glue:GetDatabase*
+          - glue:GetTable*
+          - glue:GetPartition*
+          - glue:GetUserDefinedFunction
+          - glue:BatchGetPartition
+          Resource:
+          - arn:aws:glue:*:*:catalog
+          - !Sub arn:aws:glue:*:*:database/${AthenaDatabase}*
+          - !Sub arn:aws:glue:*:*:table/${AthenaDatabase}*/*
+        - Sid: AthenaQueryResultsOutput
+          Effect: Allow
+          Action:
+          - s3:GetBucketLocation
+          - s3:GetObject
+          - s3:ListBucket
+          - s3:ListBucketMultipartUploads
+          - s3:ListMultipartUploadParts
+          - s3:AbortMultipartUpload
+          - s3:CreateBucket
+          - s3:PutObject
+          Resource:
+          - !Sub arn:aws:s3:::${S3BucketResult}*
+        - Sid: S3ReadAccessToAwsBillingData
+          Effect: Allow
+          Action:
+          - s3:Get*
+          - s3:List*
+          Resource:
+          - !Sub 'arn:aws:s3:::${S3CURBucket}*'
+        - Sid: ReadAccessToAccountTags
+          Effect: Allow
+          Action:
+          - organizations:ListAccounts
+          - organizations:ListTagsForResource
+          Resource: 
+          - "*"
+        - Sid: EC2Describe
+          Effect: Allow
+          Action:
+          - ec2:Describe*
+          Resource: "*"
+        - Sid: 'AllowEC2DescribeVolumes'
+          Effect: 'Allow'
+          Action: 
+            - 'ec2:DescribeVolumes'
+          Resource: '*'
+
+  ZestyRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: !Ref 'ZestyRoleName'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - 'ec2.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+
+  ZestyUser:
+    Type: 'AWS::IAM::User'
+    Properties:
+      UserName: !Ref ZestyUserName
+
+  ZestyAccessKey:
+    Type: 'AWS::IAM::AccessKey'
+    Properties:
+      UserName: !Ref ZestyUser
+    DependsOn: ZestyUser
+
+  StoreAWSCredentialsInSecretManager:
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: !Ref AWSSecretManager
+      Description: "Access credentials for AWS CUR Crawler user"
+      SecretString: !Join 
+        - ""
+        - - "{\"AWS_ACCESS_KEY_ID\":\""
+          - !Ref ZestyAccessKey
+          - "\",\"AWS_SECRET_ACCESS_KEY\":\""
+          - !GetAtt ZestyAccessKey.SecretAccessKey
+          - "\"}"
+      KmsKeyId: !Ref MyKmsKey
+    DependsOn: ZestyAccessKey
