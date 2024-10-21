@@ -38,3 +38,7 @@ data:
   MANAGER_HOST: "{{ .Values.grpc.client.endpoint }}"
   MANAGER_PORT: "{{ .Values.grpc.client.port }}"
   {{- end -}}
+  {{- if ne .Values.awsCluster.accessKeyID "" }}
+  AWS_ACCESS_KEY_ID: "{{ .Values.awsCluster.accessKeyID }}"
+  AWS_SECRET_ACCESS_KEY: "{{ .Values.awsCluster.secretAccessKey }}"
+  {{- end }}

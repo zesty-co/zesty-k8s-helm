@@ -3,6 +3,14 @@ orgID: ""
 encryptedCredentials: ""
 secret:
   name: zesty-k8s-agent-creds
+  key: "zesty-k8s/encrypted-creds"
+
+awsCluster:
+  # if you put the values here, the secret won't be used.
+  accessKeyID: ""
+  secretAccessKey: ""
+  secret:
+    name: aws-cluster-secret
 
 image:
   repository: "473301030746.dkr.ecr.us-west-2.amazonaws.com/zesty-k8s/agent"
@@ -57,10 +65,6 @@ prometheus:
   username: ~
   password: ~
   bearerToken: ~
-
-awsCluster:
-  enabled: true
-  secretName: aws-cluster-secret
 
 awsAthena:
   enabled: false
