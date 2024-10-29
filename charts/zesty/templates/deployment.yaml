@@ -30,8 +30,8 @@ spec:
       {{- end }}
       initContainers:
         - name: migrate
-          image: "{{ .Values.migrationImage.repository }}:{{ .Values.migrationImage.tag }}"
-          imagePullPolicy: {{ .Values.migrationImage.pullPolicy }}
+          image: "{{ .Values.image.migrationRepository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - mountPath: {{ .Values.persistence.mountPath }}
               name: {{ .Values.persistence.volumeName }}
