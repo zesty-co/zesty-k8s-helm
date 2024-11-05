@@ -33,6 +33,8 @@ data:
   S3BUCKET: "{{ .Values.s3override.bucket }}"
   REGION: "{{ .Values.s3override.region }}"
   {{- end }}
+  LOG_LEVEL: "{{ .Values.log.level }}"
+  LOG_REMOTE: "{{ .Values.log.remote }}"
   {{- if .Values.grpc.enabled }}
   GRPC_PORT: "{{ .Values.grpc.server.port }}"
   MANAGER_HOST: "{{ .Values.grpc.client.endpoint }}"
