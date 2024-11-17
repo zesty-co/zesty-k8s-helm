@@ -21,6 +21,7 @@ data:
   DB_BEARER_TOKEN: "{{ .Values.prometheus.bearerToken }}"
   {{- end }}
   {{- if .Values.awsAthena.enabled }}
+  ATHENA_ENABLED: "{{ .Values.awsAthena.enabled }}"
   ATHENA_PROJECT_ID: "{{ .Values.awsAthena.athenaProjectID }}"
   ATHENA_BUCKET_NAME: "{{ .Values.awsAthena.athenaBucketName }}"
   ATHENA_REGION: "{{ .Values.awsAthena.athenaRegion }}"
