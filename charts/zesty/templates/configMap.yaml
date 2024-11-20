@@ -51,3 +51,4 @@ data:
   AWS_ACCESS_KEY_ID: "{{ .Values.awsCluster.accessKeyID }}"
   AWS_SECRET_ACCESS_KEY: "{{ .Values.awsCluster.secretAccessKey }}"
   {{- end }}
+  SECRET_NAME: "{{ include "zesty-k8s.secret" . }}"

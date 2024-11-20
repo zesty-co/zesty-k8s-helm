@@ -11,14 +11,8 @@ rules:
     resources:
       - secrets
     resourceNames:
-      - zesty-credentials
+      - "{{ include "zesty-k8s.secret" . }}"
     verbs:
       - get
       - patch
       - update
-  - apiGroups:
-      - ""
-    resources:
-      - secrets
-    verbs:
-      - create
