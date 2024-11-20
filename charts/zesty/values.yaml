@@ -86,6 +86,12 @@ s3override:
   bucket: ~
   region: ~
 
+metadata:
+  enabled: false
+  accountID: ~
+  region: ~
+  clusterName: ~
+
 grpc:
   enabled: false
   client:
