@@ -88,6 +88,19 @@ Create a name for the ClusterRoleBinding
 {{ printf "%s-clusterRoleBinding" (include "zesty-k8s.fullname" .) }}
 {{- end -}}
 
+{{/*
+Create a name for the Role
+*/}}
+{{- define "zesty-k8s.role" -}}
+{{ printf "%s-role" (include "zesty-k8s.fullname" .) }}
+{{- end -}}
+
+{{/*
+Create a name for the RoleBinding
+*/}}
+{{- define "zesty-k8s.rolebinding" -}}
+{{ printf "%s-roleBinding" (include "zesty-k8s.fullname" .) }}
+{{- end -}}
 
 {{/*
 Create a name for the Service
