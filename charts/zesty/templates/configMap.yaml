@@ -8,6 +8,7 @@ metadata:
 data:
   ORG_ID: "{{ .Values.orgID }}"
   PATHS_MOUNTPATH: "{{ .Values.persistence.mountPath }}"
+  STORAGE_SIZE: "{{ .Values.persistence.spec.resources.requests.storage }}"
   {{- if .Values.prometheus.url }}
   PROMETHEUS_SERVER_ENDPOINT: "{{ .Values.prometheus.url }}"
   {{- end }}
