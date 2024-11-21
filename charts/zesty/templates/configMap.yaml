@@ -37,9 +37,9 @@ data:
   LOG_LEVEL: "{{ .Values.log.level }}"
   LOG_REMOTE: "{{ .Values.log.remote }}"
   {{- if .Values.metadata.enabled }}
-  ACCOUNTID: "{{ .Values.metadata.accountID }}"
-  REGION: "{{ .Values.metadata.region }}"
-  CLUSTERNAME: "{{ .Values.metadata.clusterName }}"
+  METADATA_ACCOUNTID: "{{ .Values.metadata.accountID }}"
+  METADATA_REGION: "{{ .Values.metadata.region }}"
+  METADATA_CLUSTERNAME: "{{ .Values.metadata.clusterName }}"
   {{- end }}
   {{- if .Values.grpc.enabled }}
   GRPC_PORT: "{{ .Values.grpc.server.port }}"
