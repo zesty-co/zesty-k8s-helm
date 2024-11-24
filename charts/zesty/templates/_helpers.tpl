@@ -34,7 +34,7 @@ Create chart name and version as used by the chart label.
 Create a version as used by the chart and image tag.
 */}}
 {{- define "zesty-k8s.version" -}}
-{{ default .Chart.AppVersion .Values.image.tag  }}
+{{ .Values.image.tag | default .Chart.AppVersion }}
 {{- end }}
 
 {{/*
