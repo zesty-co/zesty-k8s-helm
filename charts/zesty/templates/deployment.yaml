@@ -30,14 +30,14 @@ spec:
       {{- end }}
       initContainers:
         - name: migrate
-          image: "{{ .Values.image.migrationRepository }}:{{ .Values.image.tag }}"
+        - image: "{{ .Values.image.migrationRepository }}:{{ template "zesty-k8s.version" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - mountPath: {{ .Values.persistence.mountPath }}
               name: {{ .Values.persistence.volumeName }}
           args: ["schema", "apply", "--url", "sqlite://{{ .Values.persistence.mountPath}}/zesty.db", "--dev-url", "sqlite://:memory:", "--to",  "file:///bin/pkg/db/schema.sql", "--auto-approve"]
       containers:
-        - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        - image: "{{ .Values.image.repository }}:{{ template "zesty-k8s.version" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: "{{ include "zesty-k8s.name" . }}"
           ports:
