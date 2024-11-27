@@ -10,6 +10,7 @@ rules:
       - ""
     resources:
       - configmaps
+      - customresourcedefini
       - events
       - namespaces
       - nodes
@@ -71,3 +72,8 @@ rules:
     resources:
       - workloadprotections
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups:
+      - "apiextensions.k8s.io"
+    resources:
+      - customresourcedefinitions
+    verbs: ["get", "list", "watch"ש]
