@@ -108,5 +108,8 @@ config:
   manager:
     enable: false
 
+podMinuteMetrics:
+  enabled: true
+
 metricsServer:
   enabled: false # enable it to install metrics-server
