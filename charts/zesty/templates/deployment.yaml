@@ -5,6 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
     app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
+    date: "{{ now | unixEpoch }}"
 spec:
   replicas: 1
   strategy:
