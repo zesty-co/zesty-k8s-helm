@@ -115,4 +115,5 @@ metricsServer:
   enabled: false # enable it to install metrics-server
 
 autoUpdate:
+  enabled: false
   schedule: "0 0 * * 2,4"
