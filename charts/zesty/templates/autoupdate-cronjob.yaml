@@ -24,6 +24,7 @@ spec:
           containers:
             - name: zesty-k8s-updater
               image: "{{ .Values.image.repository }}:{{ .Values.autoUpdate.tag }}" 
+              command: ["./update"]
               imagePullPolicy: Always
               env:
               - name: RELEASE_NAME
