@@ -117,3 +117,4 @@ metricsServer:
 autoUpdate:
   enabled: false
   schedule: "0 0 * * 2,4"
+  tag: stable

@@ -13,11 +13,17 @@ spec:
     spec:
       template:
         spec:
+          {{- if .Values.nodeSelector }}
           nodeSelector:
-            kubernetes.io/arch: amd64
+          {{- toYaml .Values.nodeSelector | nindent 10 }}
+          {{- end }}
+          {{- if .Values.tolerations }}
+          tolerations:
+          {{- toYaml .Values.tolerations | nindent 10 }}
+          {{- end }}
           containers:
             - name: zesty-k8s-updater
-              image: "{{ .Values.image.repository }}:{{ include "zesty-k8s.version" . }}" 
+              image: "{{ .Values.image.repository }}:{{ .Values.autoUpdate.tag }}" 
               imagePullPolicy: Always
               env:
               - name: RELEASE_NAME
