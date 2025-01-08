@@ -25,7 +25,7 @@ spec:
             - name: zesty-k8s-updater
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
               command: ["./update"]
-              imagePullPolicy: Always
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
               env:
               - name: RELEASE_NAME
                 value: "{{ .Release.Name }}"

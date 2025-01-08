@@ -115,5 +115,5 @@ metricsServer:
   enabled: false # enable it to install metrics-server
 
 autoUpdate:
-  enabled: false
-  schedule: "0 0 * * 2,4"
+  enabled: false # enable it to allow auto update for the agent
+  schedule: "0 0 * * 2,4" # At 00:00 on Tuesday and Thursday
