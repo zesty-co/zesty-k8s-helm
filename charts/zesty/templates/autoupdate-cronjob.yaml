@@ -23,7 +23,7 @@ spec:
           {{- end }}
           containers:
             - name: zesty-k8s-updater
-              image: "{{ .Values.image.repository }}:{{ .Values.autoUpdate.tag }}" 
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
               command: ["./update"]
               imagePullPolicy: Always
               env:

@@ -21,7 +21,7 @@ image:
   repository: "672188301118.dkr.ecr.eu-west-1.amazonaws.com/zesty-k8s/agent"
   migrationRepository: "672188301118.dkr.ecr.eu-west-1.amazonaws.com/zesty-k8s/agent/migration"
   pullPolicy: Always
-  tag: ~
+  tag: stable
 nodeSelector: {}
 
 tolerations: []
@@ -117,4 +117,3 @@ metricsServer:
 autoUpdate:
   enabled: false
   schedule: "0 0 * * 2,4"
-  tag: stable
