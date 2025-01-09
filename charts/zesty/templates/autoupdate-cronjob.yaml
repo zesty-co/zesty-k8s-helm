@@ -6,10 +6,12 @@ metadata:
   labels:
     app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
     app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
-    date: "{{ now | unixEpoch }}"
 spec:
   schedule: "{{ .Values.autoUpdate.schedule }}"
   jobTemplate:
+    metadata:
+      annotations:
+        timestamp: {{ now | quote }}
     spec:
       template:
         spec:
