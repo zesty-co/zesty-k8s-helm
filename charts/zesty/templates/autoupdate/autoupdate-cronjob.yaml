@@ -23,6 +23,7 @@ spec:
           tolerations:
           {{- toYaml .Values.tolerations | nindent 10 }}
           {{- end }}
+          serviceAccountName: "{{ include "zesty-k8s.autoupdate-saname" . }}"
           containers:
             - name: zesty-k8s-updater
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
