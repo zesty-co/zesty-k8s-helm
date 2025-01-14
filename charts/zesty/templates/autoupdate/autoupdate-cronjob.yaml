@@ -1,0 +1,39 @@
+{{- if .Values.autoUpdate.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: "{{ include "zesty-k8s.fullname" . }}-updater"
+  labels:
+    app.kubernetes.io/instance: "{{ include "zesty-k8s.fullname" . }}"
+    app.kubernetes.io/name: "{{ include "zesty-k8s.fullname" . }}"
+spec:
+  schedule: "{{ .Values.autoUpdate.schedule }}"
+  jobTemplate:
+    metadata:
+      annotations:
+        timestamp: {{ now | quote }}
+    spec:
+      template:
+        spec:
+          {{- if .Values.nodeSelector }}
+          nodeSelector:
+          {{- toYaml .Values.nodeSelector | nindent 10 }}
+          {{- end }}
+          {{- if .Values.tolerations }}
+          tolerations:
+          {{- toYaml .Values.tolerations | nindent 10 }}
+          {{- end }}
+          serviceAccountName: "{{ include "zesty-k8s.autoupdate-saname" . }}"
+          containers:
+            - name: zesty-k8s-updater
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+              command: ["./update"]
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+              - name: RELEASE_NAME
+                value: "{{ .Release.Name }}"
+              - name: NAMESPACE
+                value: "{{ include "zesty-k8s.namespace" . }}"
+          restartPolicy: Never
+      backoffLimit: 4
+{{- end }}
