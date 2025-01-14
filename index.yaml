@@ -3,6 +3,21 @@ entries:
   zesty-k8s-helm:
   - apiVersion: v2
     appVersion: 1.62.2
+    created: "2025-01-14T13:47:13.19697835Z"
+    dependencies:
+    - condition: metricsServer.enabled
+      name: metrics-server
+      repository: https://kubernetes-sigs.github.io/metrics-server/
+      version: 3.12.1
+    description: A Helm chart for Kubernetes
+    digest: a0ffe4a57b9072644adf4e39f0d50b12560abfb65796e5e7d0e5be68fd906f73
+    name: zesty-k8s-helm
+    type: application
+    urls:
+    - https://github.com/zesty-co/zesty-k8s-helm/releases/download/zesty-k8s-helm-1.0.35/zesty-k8s-helm-1.0.35.tgz
+    version: 1.0.35
+  - apiVersion: v2
+    appVersion: 1.62.2
     created: "2025-01-14T13:39:44.409996737Z"
     dependencies:
     - condition: metricsServer.enabled
@@ -1201,4 +1216,4 @@ entries:
     urls:
     - https://github.com/zesty-co/zesty-k8s-helm/releases/download/zesty-k8s-helm-0.1.0/zesty-k8s-helm-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-14T13:39:44.410320562Z"
+generated: "2025-01-14T13:47:13.197297155Z"
