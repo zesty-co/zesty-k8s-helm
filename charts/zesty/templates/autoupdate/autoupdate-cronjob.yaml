@@ -17,11 +17,11 @@ spec:
         spec:
           {{- if .Values.nodeSelector }}
           nodeSelector:
-          {{- toYaml .Values.nodeSelector | nindent 10 }}
+          {{- toYaml .Values.nodeSelector | nindent 14 }}
           {{- end }}
           {{- if .Values.tolerations }}
           tolerations:
-          {{- toYaml .Values.tolerations | nindent 10 }}
+          {{- toYaml .Values.tolerations | nindent 14 }}
           {{- end }}
           serviceAccountName: "{{ include "zesty-k8s.autoupdate-saname" . }}"
           containers:
