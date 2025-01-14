@@ -1,3 +1,4 @@
+{{- if .Values.autoUpdate.enabled }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -13,3 +14,4 @@ subjects:
   - kind: ServiceAccount
     name: "{{ include "zesty-k8s.autoupdate-saname" . }}"
     namespace: "{{ include "zesty-k8s.namespace" . }}"
+{{- end }}
