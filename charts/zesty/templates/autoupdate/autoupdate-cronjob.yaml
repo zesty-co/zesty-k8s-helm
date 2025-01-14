@@ -31,7 +31,7 @@ spec:
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               env:
               - name: RELEASE_NAME
-                value: "{{ .Release.Name }}"
+                value: "{{ include "zesty-k8s.fullname" . }}"
               - name: NAMESPACE
                 value: "{{ include "zesty-k8s.namespace" . }}"
           restartPolicy: Never
