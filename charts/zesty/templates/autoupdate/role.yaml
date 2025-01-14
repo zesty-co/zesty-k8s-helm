@@ -29,6 +29,16 @@ rules:
       - list
       - create
   - apiGroups:
+      - "batch"
+    resources:
+      - cronjobs
+    verbs:
+      - get
+      - patch
+      - update
+      - list
+      - create
+  - apiGroups:
       - ""
     resources:
       - serviceaccounts
