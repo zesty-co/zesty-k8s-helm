@@ -82,6 +82,11 @@ awsAthena:
   athenaWorkgroup: ~
   athenaCatalog: ~
 
+assumeRole:
+  enabled: false
+  masterRoleArn: ~
+  externalID: ~
+
 s3override:
   enabled: false
   bucket: ~
