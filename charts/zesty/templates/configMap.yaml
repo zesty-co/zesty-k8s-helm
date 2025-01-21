@@ -33,7 +33,6 @@ data:
   ATHENA_CATALOG: "{{ .Values.awsAthena.athenaCatalog }}"
   {{- end }}
   {{- if .Values.assumeRole.enabled }}
-  IS_SUB_ACCOUNT: "{{ .Values.assumeRole.enabled }}"
   MASTER_PAYER_ARN: "{{ .Values.assumeRole.masterRoleArn }}"
   EXTERNAL_ID: "{{ .Values.assumeRole.externalID }}"
   {{- end }}
