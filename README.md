@@ -17,7 +17,7 @@ helm repo update
 ```
 $ helm search repo zesty
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-zesty/kompass-insights    0.1.0          1.0.8           A Helm chart for Kubernetes
+zesty/kompass-insights  1.1.0           1.62.2          A Helm chart for Kubernetes
 ```
 3. Install the chart
 ```sh
