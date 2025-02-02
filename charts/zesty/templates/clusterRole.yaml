@@ -23,6 +23,7 @@ rules:
       - "metrics.k8s.io"
     resources:
       - pods
+      - nodes
     verbs:
       - get
       - list
