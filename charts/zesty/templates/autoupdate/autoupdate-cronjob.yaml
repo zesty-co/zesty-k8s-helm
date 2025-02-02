@@ -31,7 +31,7 @@ spec:
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               envFrom:
                 - configMapRef:
-                  name: "{{ include "zesty-k8s.configmap" . }}"
+                    name: "{{ include "zesty-k8s.configmap" . }}"
               env:
               - name: RELEASE_NAME
                 value: "{{ .Release.Name }}"
