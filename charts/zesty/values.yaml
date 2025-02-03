@@ -123,3 +123,6 @@ metricsServer:
 autoUpdate:
   enabled: true # enable it to allow auto update for the agent
   schedule: "0 0 * * 2,4" # At 00:00 on Tuesday and Thursday
+
+admissionController:
+  enabled: false

@@ -1,0 +1,51 @@
+{{- if .Values.admissionController.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: {{ include "zesty-admission-controller.fullname" . }}
+  namespace: {{ template "zesty-admission-controller.namespace" . }}
+  labels:
+    app: {{ include "zesty-admission-controller.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "zesty-admission-controller.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "zesty-admission-controller.fullname" . }}
+    spec:
+      serviceAccountName: "{{ include "zesty-admission-controller.sa" . }}"
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml .Values.nodeSelector | nindent 10 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations:
+      {{- toYaml .Values.tolerations | nindent 10 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+          - name: https
+            containerPort: 443
+            protocol: TCP
+          - name: grpc
+            containerPort: {{ .Values.grpc.port }}
+          volumeMounts:
+            - mountPath: "/etc/webhook/tls"
+              name: webhook-tls
+              readOnly: true
+          envFrom:
+            - configMapRef:
+                name: {{ include "zesty-admission-controller.configMap" . }}
+      volumes:
+        - name: webhook-tls
+          secret:
+            secretName: {{ template "zesty-admission-controller.serviceName" . }}.{{ template "zesty-admission-controller.namespace" . }}.svc.zesty-admission-controller-tls-pair
+{{- end }}

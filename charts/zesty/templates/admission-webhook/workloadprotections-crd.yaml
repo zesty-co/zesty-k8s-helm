@@ -1,0 +1,127 @@
+{{- if .Values.admissionController.enabled }}
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.14.0
+  name: workloadprotections.qscaler.qubex.ai
+spec:
+  group: qscaler.qubex.ai
+  names:
+    kind: WorkloadProtection
+    listKind: WorkloadProtectionList
+    plural: workloadprotections
+    singular: workloadprotection
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.state
+      name: State
+      type: string
+    - jsonPath: .status.lastUpdatedAt
+      name: Last_Updated
+      type: date
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: WorkloadProtection is the entity responsible for protecting user
+          selected workload
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              spike:
+                description: Spike protection configuration
+                properties:
+                  active:
+                    default: false
+                    type: boolean
+                  threshold:
+                    anyOf:
+                    - type: integer
+                    - type: string
+                    x-kubernetes-int-or-string: true
+                required:
+                - active
+                type: object
+              spot:
+                description: Spot protection configuration
+                properties:
+                  active:
+                    default: false
+                    type: boolean
+                required:
+                - active
+                type: object
+            type: object
+          status:
+            properties:
+              lastUpdatedAt:
+                description: LastUpdatedAt
+                format: date-time
+                type: string
+              message:
+                description: Message
+                type: string
+              protectedQScalers:
+                description: ProtectedQScalers
+                items:
+                  type: string
+                type: array
+              state:
+                description: State
+                enum:
+                - Active
+                - Pending
+                - Failed
+                type: string
+              workloadReference:
+                description: |-
+                  WorkloadReference
+                  It is used as a safeguard in case a WorkloadProtection object has multiple owners.
+                  Field will point to the workload that is being protected by this WorkloadProtection object.
+                properties:
+                  apiVersion:
+                    description: APIVersion
+                    type: string
+                  kind:
+                    description: Kind
+                    type: string
+                  name:
+                    description: Name
+                    type: string
+                  uid:
+                    description: UID
+                    type: string
+                required:
+                - apiVersion
+                - kind
+                - name
+                - uid
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+{{- end }}
