@@ -9,7 +9,7 @@ metadata:
   labels:
     app: {{ include "zesty-admission-controller.fullname" . }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.admissionController.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "zesty-admission-controller.fullname" . }}
@@ -29,8 +29,8 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.admissionController.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.admissionController.image.pullPolicy }}
           ports:
           - name: https
             containerPort: 443
