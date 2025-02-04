@@ -22,7 +22,7 @@ If release name contains chart name it will be used as a full name.
   {{- if .Values.admissionController.fullnameOverride }}
     {{- .Values.admissionController.fullnameOverride | trunc 63 | trimSuffix "-" }}
   {{- else }}
-    {{- $name := default zesty-admission-controller .Values.admissionController.nameOverride }}
+    {{- $name := default "zesty-admission-controller" .Values.admissionController.nameOverride }}
     {{- if contains $name .Release.Name }}
       {{- zesty-admission-controller | trunc 63 | trimSuffix "-" }}
     {{- else }}
