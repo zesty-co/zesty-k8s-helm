@@ -8,5 +8,5 @@ metadata:
 data:
   AGENT_HOST: "kompass-insights-svc"
   AGENT_PORT: "50052"
-  GRPC: "{{ .Values.grpc.port }}"
+  GRPC: "{{ .Values.grpc.client.port }}"
 {{- end }}

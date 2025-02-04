@@ -9,7 +9,7 @@ metadata:
   labels:
     app: {{ include "zesty-admission-controller.fullname" . }}
 spec:
-  maxUnavailable: {{ .Values.pdb.maxUnavailable }}
+  maxUnavailable: {{ .Values.admissionController.pdb.maxUnavailable }}
   selector:
     matchLabels:
       app: {{ include "zesty-admission-controller.fullname" . }}
