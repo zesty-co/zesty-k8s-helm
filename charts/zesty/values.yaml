@@ -126,6 +126,12 @@ autoUpdate:
 
 admissionController:
   enabled: false
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: 250m
+      memory: 2Gi
   replicaCount: 2
   image:
     # -- (string) Image repository
