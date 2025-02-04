@@ -29,7 +29,7 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.admissionController.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.admissionController.image.repository }}:{{ .Values.admissionController.image.tag }}"
           imagePullPolicy: {{ .Values.admissionController.image.pullPolicy }}
           ports:
           - name: https
