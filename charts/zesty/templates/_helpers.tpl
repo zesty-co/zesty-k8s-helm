@@ -10,7 +10,7 @@ Helper Templates for zesty-admission-controller and zesty-k8s
 Expand the name of the chart.
 */}}
 {{- define "zesty-admission-controller.name" -}}
-{{- default zesty-admission-controller .Values.admissionController.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- default "zesty-admission-controller" .Values.admissionController.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
