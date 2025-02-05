@@ -10,7 +10,7 @@ Helper Templates for zesty-admission-controller and zesty-k8s
 Expand the name of the chart.
 */}}
 {{- define "zesty-admission-controller.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- default "zesty-admission-controller" .Values.admissionController.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -19,10 +19,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "zesty-admission-controller.fullname" -}}
-  {{- if .Values.fullnameOverride }}
-    {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+  {{- if .Values.admissionController.fullnameOverride }}
+    {{- .Values.admissionController.fullnameOverride | trunc 63 | trimSuffix "-" }}
   {{- else }}
-    {{- $name := default .Chart.Name .Values.nameOverride }}
+    {{- $name := default "zesty-admission-controller" .Values.admissionController.nameOverride }}
     {{- if contains $name .Release.Name }}
       {{- .Release.Name | trunc 63 | trimSuffix "-" }}
     {{- else }}
@@ -35,14 +35,14 @@ If release name contains chart name it will be used as a full name.
 Create chart name and version as used by the chart label.
 */}}
 {{- define "zesty-admission-controller.chart" -}}
-  {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+  {{- printf "%s-%s" "zesty-admission-controller" .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create a namespace name used by the chart.
 */}}
 {{- define "zesty-admission-controller.namespace" -}}
-  {{ default .Release.Namespace .Values.namespaceOverride }}
+  {{ default .Release.Namespace .Values.admissionController.namespaceOverride }}
 {{- end -}}
 
 {{/*
