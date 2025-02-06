@@ -61,6 +61,7 @@ rules:
       - "keda.sh"
     resources:
       - scaledjobs
+      - scaledobjects
     {{- include "zesty-k8s.verbs" . | nindent 4 }}
   - apiGroups:
       - autoscaling

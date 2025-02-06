@@ -27,6 +27,7 @@ rules:
       - keda.sh
     resources:
       - scaledjobs
+      - scaledobject
     verbs:
       - get
       - list
